@@ -1,0 +1,36 @@
+Create Table admin.admins(
+admin_id int,
+admin_name varchar(255),
+admin_username varchar(255),
+admin_password varchar(255),
+admin_address varchar(255),
+Primary Key(admin_id));
+
+CREATE TABLE admin.customers (
+    customer_id int,
+    customer_name varchar(255),
+    customer_username varchar(255),
+    customer_password varchar(255),
+    customer_address varchar(255),
+    PRIMARY KEY (customer_id));
+
+CREATE TABLE admin.orders (
+    order_id INT,
+    customer_id INT,
+    customer_address VARCHAR(255),
+    PRIMARY KEY (order_id),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (customer_address) REFERENCES customers(customer_address)
+);
+
+CREATE TABLE admin.shipments (
+    shipment_id INT,
+    order_id INT,
+    customer_id INT,
+    employee_name VARCHAR(255),
+    employee_username VARCHAR(255),
+    employee_password VARCHAR(255),
+    employee_tempPassword VARCHAR(255),
+    PRIMARY KEY (shipment_id),
+    FOREIGN KEY (order_id) REFERENCES admin.orders(order_id),
+    FOREIGN KEY (customer_id) REFERENCES admin.customers(customer_id));
