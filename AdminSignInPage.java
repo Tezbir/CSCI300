@@ -46,7 +46,7 @@ public class AdminSignInPage {
         frame.setVisible(true);
     }
 
-    // Validate credentials against the database
+    
     private static boolean validateLogin(String username, String password) {
         String sql = "SELECT * FROM employees WHERE employee_username = ? AND employee_password = ?";
 
@@ -57,7 +57,7 @@ public class AdminSignInPage {
             stm.setString(2, password);
 
             ResultSet rs = stm.executeQuery();
-            return rs.next(); // true if user found
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
