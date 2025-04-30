@@ -1,0 +1,45 @@
+import javax.swing.*;
+import java.awt.event.*;
+
+public class AdminGUI {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Admin Panel");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);
+
+        JButton addBtn = new JButton("Add Employee");
+        addBtn.setBounds(100, 30, 200, 30);
+        frame.add(addBtn);
+
+        JButton updateBtn = new JButton("Update Employee");
+        updateBtn.setBounds(100, 70, 200, 30);
+        frame.add(updateBtn);
+
+        JButton removeBtn = new JButton("Remove Employee");
+        removeBtn.setBounds(100, 110, 200, 30);
+        frame.add(removeBtn);
+
+        JButton orderBtn = new JButton("Edit Order");
+        orderBtn.setBounds(100, 150, 200, 30);
+        frame.add(orderBtn);
+        
+        JButton deleteCustomerBtn = new JButton("Delete Customer");
+        deleteCustomerBtn.setBounds(100, 190, 200, 30);
+        frame.add(deleteCustomerBtn);
+        
+
+        JButton exitBtn = new JButton("Exit");
+        exitBtn.setBounds(100, 230, 200, 30);
+        frame.add(exitBtn);
+
+        addBtn.addActionListener(e -> Admin.addEmployee());
+        updateBtn.addActionListener(e -> Admin.updateEmployee());
+        removeBtn.addActionListener(e -> Admin.deleteEmployee());
+        orderBtn.addActionListener(e -> Admin.changeOrder());
+        deleteCustomerBtn.addActionListener(e -> Admin.deleteCustomer());
+        exitBtn.addActionListener(e -> System.exit(0));
+        frame.setVisible(true);
+    }
+}
