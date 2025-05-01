@@ -1,5 +1,5 @@
 CREATE TABLE online_store.Employees(
-	employee_id int,
+	employee_id int AUTO_INCREMENT,
 	employee_name varchar(255),
 	employee_username varchar(255),
     employee_password varchar(255),
@@ -7,7 +7,7 @@ CREATE TABLE online_store.Employees(
     PRIMARY KEY (employee_id)
     );
 CREATE TABLE online_store.Items(
-	item_id int,
+	item_id int AUTO_INCREMENT,
     item_name varchar(255),
     item_price DECIMAL(10,2),
     quantity_in_stock int,
@@ -25,14 +25,14 @@ CREATE TABLE online_store.Customers (
     );
 
 CREATE TABLE online_store.Coupons(
-	code_id int,
+	code_id int AUTO_INCREMENT,
     discount_percent DECIMAL(5,2) CHECK (discount_percent >= 0 AND discount_percent <= 100),
 	created_by int,
     PRIMARY KEY (code_id),
 	FOREIGN KEY (created_by) REFERENCES Employees(employee_id)
 );
 CREATE TABLE online_store.Orders (
-     order_id int,
+     order_id int AUTO_INCREMENT,
 	 customer_id int,
      order_date_time DATETIME,
      delivery_date DATE,
@@ -50,3 +50,44 @@ CREATE TABLE online_store.OrderOfItems (
     FOREIGN KEY (order_id) REFERENCES Orders(order_id),
     FOREIGN KEY (item_id) REFERENCES Items(item_id)
 );
+
+SELECT * FROM online_store.Employees;
+SELECT * FROM online_store.Items;
+SELECT * FROM online_store.Coupons;
+SELECT * FROM online_store.Customers;
+
+
+INSERT INTO online_store.Customers (customer_name, customer_username, customer_password, customer_address)
+VALUES ('Melissa Smith', 'msmith', 'pass123', '123 Line St');
+
+
+INSERT INTO online_store.Orders (order_id, customer_id, order_date_time, delivery_date, coupon_code)
+VALUES (1, 1,'2024-04-30 12:00:00', '2024-05-14', 6545);
+
+SELECT * FROM online_store.Orders;
+SELECT * FROM online_store.OrderOfItems;
+
+INSERT INTO online_store.OrderOfItems (order_id, item_id, quantity, item_status)
+VALUES (1, 1, 2, 'pending');
+
+INSERT INTO online_store.Customers (customer_name, customer_username, customer_password, customer_address)
+VALUES ('Kyle Martin', 'kylem', 'martin345', '123 Line St');
+
+INSERT INTO online_store.Orders (order_id, customer_id, order_date_time, delivery_date, coupon_code)
+VALUES (2, 2,'2025-04-27 5:30:00', '2024-05-01', null);
+
+INSERT INTO online_store.OrderOfItems (order_id, item_id, quantity, item_status)
+VALUES (2, 3, 4, 'pending');
+
+INSERT INTO online_store.Customers (customer_name, customer_username, customer_password, customer_address)
+VALUES ('Nicole Martinez', 'niki', 'niki345', '123 Line St');
+
+INSERT INTO online_store.Orders (order_id, customer_id, order_date_time, delivery_date, coupon_code)
+VALUES (3, 3,'2025-04-28 7:45:00', '2024-05-10', 5643);
+
+UPDATE online_store.Orders
+SET delivery_date = '2025-04-30'
+WHERE order_id = 3;
+
+INSERT INTO online_store.OrderOfItems (order_id, item_id, quantity, item_status)
+VALUES (3, 4, 1, 'completed');
