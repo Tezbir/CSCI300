@@ -54,6 +54,7 @@ public class customerUpdateInfo extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
     private void updateInfo() { // Update customer info in the database
         String name = nameField.getText();
         String address = addressField.getText();
