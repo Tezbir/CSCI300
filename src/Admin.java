@@ -173,45 +173,16 @@ public class Admin {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int choice = -1;
-
-        while (choice != 0) {
-            System.out.println("1. Add New Employee");
-            System.out.println("2. Update Employee Info");
-            System.out.println("3. Delete Employee");
-            System.out.println("4. Edit Order");
-            System.out.println("5. Delete Customer");
-            System.out.println("0. Exit");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    addEmployee();
-                    break;
-                case 2:
-                    updateEmployee();
-                    break;
-                case 3:
-                    deleteEmployee();
-                    break;
-                case 4:
-                    changeOrder();
-                    break;
-                case 5:
-                    deleteCustomer(); 
-                    break;
-                case 0:
-                    System.out.println("Exiting Admin Panel. Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+      
             }
-        }
-        scanner.close();
-    }
+        
+    
 }
+
+        
+    
+
+
 
         
     
