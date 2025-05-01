@@ -5,7 +5,7 @@ public class Admin {
 
     public static Connection connection() {
         try {
-            String url = "jdbc:mysql://localhost:3306/employee";
+            String url = "jdbc:mysql://localhost:3306/online_store";
             String user = "root";
             String password = "database28";
 
@@ -35,7 +35,7 @@ public class Admin {
         Connection conn = connection();
         if (conn != null) {
             try {
-                String sql = "INSERT INTO employees (employee_id, employee_name, employee_username, employee_password, first_login) VALUES (?, ?, ?, ?, true)";
+                String sql = "INSERT INTO online_store.employees (employee_id, employee_name, employee_username, employee_password, first_login) VALUES (?, ?, ?, ?, true)";
                 PreparedStatement stm = conn.prepareStatement(sql);
                 stm.setInt(1, id);
                 stm.setString(2, name);
@@ -70,7 +70,7 @@ public class Admin {
         Connection conn = connection();
         if (conn != null) {
             try {
-                String sql = "UPDATE employees SET employee_name = ?, employee_username = ?, employee_password = ? WHERE employee_id = ?";
+                String sql = "UPDATE online_store.employees SET employee_name = ?, employee_username = ?, employee_password = ? WHERE employee_id = ?";
                 PreparedStatement stm = conn.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, username);
@@ -99,13 +99,13 @@ public class Admin {
         Connection conn = connection();
         if (conn != null) {
             try {
-                String sql = "DELETE FROM employees WHERE employee_id = ?";
+                String sql = "DELETE FROM online_store.employees WHERE employee_id = ?";
                 PreparedStatement stm = conn.prepareStatement(sql);
                 stm.setInt(1, id);
 
                 int rows = stm.executeUpdate();
                 if (rows > 0) {
-                    System.out.println("Employee deleted ");
+                    System.out.println("Employee deleted.");
                 } else {
                     System.out.println("Employee ID not found.");
                 }
@@ -121,24 +121,17 @@ public class Admin {
 
         System.out.println("Enter order ID to update:");
         int id = scanner.nextInt();
-        scanner.nextLine(); 
 
         System.out.println("Enter new customer ID:");
         int customerId = scanner.nextInt();
-        scanner.nextLine();
-        
-        System.out.println("Enter new customer address:");
-        String address = scanner.nextLine();
 
         Connection conn = connection();
         if (conn != null) {
             try {
-  
-                String sql = "UPDATE admin.orders SET customer_id = ?, customer_address = ? WHERE order_id = ?";
+                String sql = "UPDATE online_store.Orders SET customer_id = ? WHERE order_id = ?";
                 PreparedStatement stm = conn.prepareStatement(sql);
                 stm.setInt(1, customerId);
-                stm.setString(2, address);
-                stm.setInt(3, id);
+                stm.setInt(2, id);
 
                 int rows = stm.executeUpdate();
                 if (rows > 0) {
@@ -162,7 +155,7 @@ public class Admin {
         Connection conn = connection();
         if (conn != null) {
             try {
-                String sql = "DELETE FROM customer.customers WHERE customer_id = ?";
+                String sql = "DELETE FROM online_store.Customers WHERE customer_id = ?";
                 PreparedStatement stm = conn.prepareStatement(sql);
                 stm.setInt(1, id);
 
@@ -221,5 +214,6 @@ public class Admin {
 }
 
         
+    
     
 
