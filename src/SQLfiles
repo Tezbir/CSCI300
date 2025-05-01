@@ -10,15 +10,6 @@ values(1,'Admin admin','admin','admin','1 Ronkonkoma Avenue, Lake Ronkonkoma, Ne
 insert into
 values(2,'Tezbir Singh','tezbir','Ribzet','10 Spring Yard, Lake Ronkonkoma, New York');
 
-CREATE TABLE online_store.customers (
-    customer_id int,
-    customer_name varchar(255),
-    customer_username varchar(255),
-    customer_password varchar(255),
-    customer_address varchar(255),
-    PRIMARY KEY (customer_id));
-ALTER TABLE customers AUTO_INCREMENT = 1;
-
  CREATE TABLE online_store.Orders (
       order_id int,
  	 customer_id int,
@@ -37,6 +28,7 @@ CREATE TABLE online_store.shipments (
     PRIMARY KEY (shipment_id),
     FOREIGN KEY (order_id) REFERENCES admin.orders(order_id),
     FOREIGN KEY (customer_id) REFERENCES admin.customers(customer_id));
+
 CREATE TABLE online_store.Employees(
  	employee_id int,
  	employee_name varchar(255),
