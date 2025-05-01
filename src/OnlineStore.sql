@@ -172,3 +172,13 @@ VALUES (100, 'Skirt', 39.99, 20,'Mom and Pop Shop');
      FOREIGN KEY (order_id) REFERENCES Orders(order_id),
      FOREIGN KEY (item_id) REFERENCES Items(item_id)
  );
+
+CREATE TABLE online_store.cart (
+    customer_id INT AUTO_INCREMENT,
+    item_name VARCHAR(255),
+    item_price DECIMAL(10,2),
+    item_quantity INT,
+    PRIMARY KEY (customer_id, item_name),
+    FOREIGN KEY (customer_id) REFERENCES online_store.Customers(customer_id)
+);
+DESCRIBE online_store.cart;
