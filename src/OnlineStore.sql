@@ -6,6 +6,9 @@ CREATE TABLE online_store.Employees(
     employee_tempPassword varchar(255),
     PRIMARY KEY (employee_id)
     );
+INSERT INTO online_store.Employees (employee_id, employee_name, employee_username,  employee_password, employee_tempPassword)
+VALUES (1, 'John Smith' ,'JayS', 'Password', 'hey');
+
 CREATE TABLE online_store.Items(
 	item_id int AUTO_INCREMENT,
     item_name varchar(255),
