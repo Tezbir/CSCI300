@@ -17,7 +17,7 @@ CREATE TABLE admin.customers (
     customer_password varchar(255),
     customer_address varchar(255),
     PRIMARY KEY (customer_id));
-
+ALTER TABLE customers AUTO_INCREMENT = 1;
 CREATE TABLE admin.orders (
     order_id INT,
     customer_id INT,
