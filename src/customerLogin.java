@@ -31,26 +31,28 @@ public class customerLogin extends JFrame {
         });
         setVisible(true);   
     }
-    public void login() {
-        String username = usernameField.getText();
-        String password = new String(passwordField.getPassword());
-        try (Connection conn = database.connection()) {
-            String sql = "SELECT * FROM customers WHERE customer_username = ? AND customer_password = ?";
-            PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, username);
-            stm.setString(2, password);
-            ResultSet rs = stm.executeQuery();
-           if (rs.next()) {
+public void login() {
+    String username = usernameField.getText();
+    String password = new String(passwordField.getPassword());
+    try (Connection conn = database.connection()) {
+        String sql = "SELECT * FROM customers WHERE customer_username = ? AND customer_password = ?";
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setString(1, username);
+        stm.setString(2, password);
+        ResultSet rs = stm.executeQuery();
+        if (rs.next()) {
             int customerId = rs.getInt("customer_id");
             JOptionPane.showMessageDialog(this, "Login successful! Welcome back " + username + "!");
             this.dispose(); // Close the login window
-           } else {
+            new customerDashboard(customerId); // Connect to dashboard
+        } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.");
-            usernameField.setText(""); // Clear the username field
-            passwordField.setText(""); // Clear the password field
-           }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            usernameField.setText("");
+            passwordField.setText("");
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 }
+
 }
