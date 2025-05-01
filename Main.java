@@ -12,7 +12,7 @@ public class Main {
                 //new EmployeeLogin(); // Change to how you made the employee login window.
                 break;
             case "A":
-                //new AdminGUI(); // Change this to how you made the admin login window.
+                new AdminSignInPage(); // Change this to how you made the admin login window.
                 break;
             default:
                 System.out.println("Invalid input. Please enter C, E, or A.");
