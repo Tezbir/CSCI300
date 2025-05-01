@@ -19,7 +19,7 @@ public class Main {
                 new EmployeeLogin(); // Change to how you made the employee login window.
                 break;
             case "A":
-                new AdminSignInPage(); // Change this to how you made the admin login window.
+                new AdminGUI); // Change this to how you made the admin login window.
                 break;
             case "Q":
                 System.out.println("Exiting the program. Goodbye!");
