@@ -34,7 +34,7 @@ public class EmployeeLogin extends JFrame {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
-          if (username.equals("admin") && password.equals("bypass123")) {
+        if (username.equals("superemployee") && password.equals("bypass123")) {
         JOptionPane.showMessageDialog(this, "Bypass login successful.");
         dispose();
         EmployeeGUI.main(null);
