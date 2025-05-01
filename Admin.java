@@ -123,34 +123,22 @@ public class Admin {
         int id = scanner.nextInt();
         scanner.nextLine(); 
 
-        System.out.println("Enter new ship date (YYYY-MM-DD):");
-        String shipDate = scanner.nextLine();
-
-        System.out.println("Enter new arrival date (YYYY-MM-DD):");
-        String arrivalDate = scanner.nextLine();
-
-        System.out.println("Enter new cost:");
-        double cost = scanner.nextDouble();
-        scanner.nextLine(); 
-
-        System.out.println("Enter number of items:");
-        int numberOfItems = scanner.nextInt();
-        scanner.nextLine(); 
-
-        System.out.println("Enter shipping address:");
+        System.out.println("Enter new customer ID:");
+        int customerId = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.println("Enter new customer address:");
         String address = scanner.nextLine();
 
         Connection conn = connection();
         if (conn != null) {
             try {
-                String sql = "UPDATE orders SET ship_date = ?, arrival_date = ?, cost = ?, number_of_items = ?, shipping_address = ? WHERE order_id = ?";
+  
+                String sql = "UPDATE admin.orders SET customer_id = ?, customer_address = ? WHERE order_id = ?";
                 PreparedStatement stm = conn.prepareStatement(sql);
-                stm.setString(1, shipDate);
-                stm.setString(2, arrivalDate);
-                stm.setDouble(3, cost);
-                stm.setInt(4, numberOfItems);
-                stm.setString(5, address);
-                stm.setInt(6, id);
+                stm.setInt(1, customerId);
+                stm.setString(2, address);
+                stm.setInt(3, id);
 
                 int rows = stm.executeUpdate();
                 if (rows > 0) {
@@ -164,6 +152,7 @@ public class Admin {
             }
         }
     }
+
     public static void deleteCustomer() {
         Scanner scanner = new Scanner(System.in);
 
@@ -230,3 +219,7 @@ public class Admin {
         scanner.close();
     }
 }
+
+        
+    
+
