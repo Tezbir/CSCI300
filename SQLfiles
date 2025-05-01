@@ -20,6 +20,7 @@ CREATE TABLE admin.customers (
 ALTER TABLE customers AUTO_INCREMENT = 1;
 CREATE TABLE admin.orders (
     order_id INT,
+    order_cost double,
     customer_id INT,
     customer_address VARCHAR(255),
     PRIMARY KEY (order_id),
