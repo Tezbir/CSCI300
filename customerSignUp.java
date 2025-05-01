@@ -53,12 +53,19 @@ public class customerSignUp extends JFrame {
         String address = addressField.getText();
         try (Connection conn = connection()) {
             String sql = "INSERT INTO customers (customer_name, customer_username, customer_password, customer_address) VALUES (?, ?, ?, ?)"; // SQL query to insert customer data into the database. customer_id should be auto-incremented in the database.
-            PreparedStatement stm = conn.prepareStatement(sql);
+            PreparedStatement stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, name);
             stm.setString(2, username);
             stm.setString(3, password);
             stm.setString(4, address);
             stm.executeUpdate();
+            ResultSet rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                int customerId = rs.getInt(1);
+                JOptionPane.showMessageDialog(this, "Account created successfully!\nYour Customer ID is: " + customerId);
+            } else {
+                JOptionPane.showMessageDialog(this, "Account created, but customer ID could not be retrieved.");
+            }
             JOptionPane.showMessageDialog(this, "Account created successfully!");
             this.dispose(); // Close current JFrame after successful sign-up.
             new customerSignUp(); // Creates a new instance of the customerSignUp class to allow for another sign-up.
