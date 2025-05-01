@@ -41,6 +41,9 @@ public class browseItems {
         frame.add(buttonPanel, BorderLayout.SOUTH);
         frame.add(searchPanel, BorderLayout.NORTH);
 
+        // 👇 Insert a skirt item if not already present
+        addSkirtToDatabase();
+
         loadItems();
 
         addToCartButton.addActionListener(e -> addToCart());
@@ -50,6 +53,27 @@ public class browseItems {
 
         frame.setVisible(true);
     }
+
+    public void addSkirtToDatabase() {
+        try (Connection conn = database.connection()) {
+            String checkSql = "SELECT * FROM items WHERE item_name = ?";
+            PreparedStatement checkStm = conn.prepareStatement(checkSql);
+            checkStm.setString(1, "Skirt");
+            ResultSet rs = checkStm.executeQuery();
+
+            if (!rs.next()) {  // Only insert if not already present
+                String sql = "INSERT INTO items (item_name, item_price, item_quantity) VALUES (?, ?, ?)";
+                PreparedStatement stm = conn.prepareStatement(sql);
+                stm.setString(1, "Skirt");
+                stm.setDouble(2, 29.99);
+                stm.setInt(3, 50);
+                stm.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadItems() {
         try (Connection conn = database.connection()) {
             String sql = "SELECT * FROM items";
@@ -66,11 +90,12 @@ public class browseItems {
             e.printStackTrace();
         }
     }
+
     public void addToCart() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
             String itemName = (String) tableModel.getValueAt(selectedRow, 0);
-            String itemPrice = (String) tableModel.getValueAt(selectedRow, 1);
+            double itemPrice = (double) tableModel.getValueAt(selectedRow, 1);
             int itemQuantity = (int) tableModel.getValueAt(selectedRow, 2);
             try {
                 String quantityStr = JOptionPane.showInputDialog(frame, "Enter quantity to add:");
@@ -81,26 +106,27 @@ public class browseItems {
                     return;
                 }
 
-             try (Connection conn = database.connection()) {
-                String sql = "INSERT INTO cart (customer_id, item_name, item_price, item_quantity) VALUES (?, ?, ?, ?)";
-                PreparedStatement stm = conn.prepareStatement(sql);
-                stm.setInt(1, customer_id);
-                stm.setString(2, itemName);
-                stm.setString(3, itemPrice);
-                stm.setInt(4, quantity);
-                stm.executeUpdate();
-                JOptionPane.showMessageDialog(frame, "Item added to cart!");
-            }
+                try (Connection conn = database.connection()) {
+                    String sql = "INSERT INTO cart (customer_id, item_name, item_price, item_quantity) VALUES (?, ?, ?, ?)";
+                    PreparedStatement stm = conn.prepareStatement(sql);
+                    stm.setInt(1, customer_id);
+                    stm.setString(2, itemName);
+                    stm.setDouble(3, itemPrice);
+                    stm.setInt(4, quantity);
+                    stm.executeUpdate();
+                    JOptionPane.showMessageDialog(frame, "Item added to cart!");
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(frame, "Invalid quantity! Please enter a number.");
             } catch (SQLException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(frame, "Error adding item to cart. Please try again.");
-        } 
+            }
         } else {
             JOptionPane.showMessageDialog(frame, "Please select an item to add to cart.");
         }
-} 
+    }
+
     public void viewCart() {
         try (Connection conn = database.connection()) {
             String sql = "SELECT * FROM cart WHERE customer_id = ?";
@@ -119,10 +145,12 @@ public class browseItems {
             e.printStackTrace();
         }
     }
+
     public void backToDashboard() {
         frame.dispose();
         new customerDashboard(customer_id);
     }
+
     public void searchItems() {
         String keyword = searchField.getText().trim();
         if (keyword.isEmpty()) {
@@ -146,3 +174,4 @@ public class browseItems {
         }
     }
 }
+
