@@ -143,6 +143,9 @@ CREATE TABLE online_store.shipments (
      PRIMARY KEY (item_id),
  	FOREIGN KEY (created_by) REFERENCES Employees(employee_id)
      );
+INSERT INTO online_store.Items (item_name, item_price, quantity_in_stock, created_by)
+VALUES ('Skirt', 39.99, 20, 1);
+
  CREATE TABLE online_store.Customers (
      customer_id int AUTO_INCREMENT,
      customer_name varchar(255),
