@@ -1,4 +1,4 @@
-import javax.swing.*;
+can you make so there is an item in here I can view import javax.swing.*;
 import java.sql.*;
 import java.awt.*;
 import javax.swing.table.*;
@@ -61,6 +61,9 @@ public class browseItems {
                 double itemPrice = rs.getDouble("item_price");
                 int itemQuantity = rs.getInt("item_quantity");
                 tableModel.addRow(new Object[]{itemName, itemPrice, itemQuantity});
+                tableModel.addRow(new Object[]{"Skirt", 29.99, 50});
+                  tableModel.addRow(new Object[]{"Shirt", 19.99, 20});
+                 tableModel.addRow(new Object[]{"Jeans", 24.99, 15});
             }
         } catch (SQLException e) {
             e.printStackTrace();
