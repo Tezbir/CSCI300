@@ -41,10 +41,10 @@ public class browseItems {
         frame.add(buttonPanel, BorderLayout.SOUTH);
         frame.add(searchPanel, BorderLayout.NORTH);
 
-        // 👇 Insert a skirt item if not already present
-        addSkirtToDatabase();
-
         loadItems();
+        tableModel.addRow(new Object[]{"Skirt", 29.99, 50});
+          tableModel.addRow(new Object[]{"T-Shirt", 9.99, 100});
+        tableModel.addRow(new Object[]{"Jeans", 19.99, 91});
 
         addToCartButton.addActionListener(e -> addToCart());
         viewCartButton.addActionListener(e -> viewCart());
@@ -52,26 +52,6 @@ public class browseItems {
         searchButton.addActionListener(e -> searchItems());
 
         frame.setVisible(true);
-    }
-
-    public void addSkirtToDatabase() {
-        try (Connection conn = database.connection()) {
-            String checkSql = "SELECT * FROM items WHERE item_name = ?";
-            PreparedStatement checkStm = conn.prepareStatement(checkSql);
-            checkStm.setString(1, "Skirt");
-            ResultSet rs = checkStm.executeQuery();
-
-            if (!rs.next()) {  // Only insert if not already present
-                String sql = "INSERT INTO items (item_name, item_price, item_quantity) VALUES (?, ?, ?)";
-                PreparedStatement stm = conn.prepareStatement(sql);
-                stm.setString(1, "Skirt");
-                stm.setDouble(2, 29.99);
-                stm.setInt(3, 50);
-                stm.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void loadItems() {
