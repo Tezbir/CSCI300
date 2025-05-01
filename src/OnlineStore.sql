@@ -133,14 +133,7 @@ CREATE TABLE online_store.shipments (
     PRIMARY KEY (shipment_id),
     FOREIGN KEY (order_id) REFERENCES admin.orders(order_id),
     FOREIGN KEY (customer_id) REFERENCES admin.customers(customer_id));
-CREATE TABLE online_store.Employees(
- 	employee_id int,
- 	employee_name varchar(255),
- 	employee_username varchar(255),
-     employee_password varchar(255),
-     employee_tempPassword varchar(255),
-     PRIMARY KEY (employee_id)
-     );
+
  CREATE TABLE online_store.Items(
  	item_id int,
      item_name varchar(255),
