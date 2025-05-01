@@ -12,18 +12,6 @@ public class browseItems {
     private JTextField searchField;
     private JButton searchButton;
 
-    public static Connection connection() {
-        try {
-            String url = "jdbc:mysql://localhost:3306/employee";
-            String user = "root";
-            String password = "database28";
-
-            return DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     public browseItems(int customerId) {
         this.customer_id = customerId;
         frame = new JFrame("Browse Items");
@@ -63,7 +51,7 @@ public class browseItems {
         frame.setVisible(true);
     }
     public void loadItems() {
-        try (Connection conn = connection()) {
+        try (Connection conn = database.connection()) {
             String sql = "SELECT * FROM items";
             PreparedStatement stm = conn.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
@@ -93,7 +81,7 @@ public class browseItems {
                     return;
                 }
 
-             try (Connection conn = connection()) {
+             try (Connection conn = database.connection()) {
                 String sql = "INSERT INTO cart (customer_id, item_name, item_price, item_quantity) VALUES (?, ?, ?, ?)";
                 PreparedStatement stm = conn.prepareStatement(sql);
                 stm.setInt(1, customer_id);
@@ -114,7 +102,7 @@ public class browseItems {
         }
 } 
     public void viewCart() {
-        try (Connection conn = connection()) {
+        try (Connection conn = database.connection()) {
             String sql = "SELECT * FROM cart WHERE customer_id = ?";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setInt(1, customer_id);
@@ -141,7 +129,7 @@ public class browseItems {
             loadItems(); // Load all items if search field is empty
             return;
         }
-        try (Connection conn = connection()) {
+        try (Connection conn = database.connection()) {
             String sql = "SELECT * FROM items WHERE item_name LIKE ?";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, "%" + keyword + "%");

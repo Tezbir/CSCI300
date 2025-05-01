@@ -8,18 +8,6 @@ public class customerSignUp extends JFrame {
     private JPasswordField passwordField; // Found online, allows for password input without showing the password characters in the database for security reasons.
     // private JTextField passwordField; // This is the original line, but it shows the password characters in the database.
     private JButton submitButton, cancelButton;
-    public static Connection connection() {
-        try {
-            String url = "jdbc:mysql://localhost:3306/employee";
-            String user = "root";
-            String password = "database28";
-
-            return DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     public customerSignUp() {
         setTitle("Sign Up");
         setSize(400,300);
@@ -51,7 +39,7 @@ public class customerSignUp extends JFrame {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         String address = addressField.getText();
-        try (Connection conn = connection()) {
+        try (Connection conn = database.connection()) {
             String sql = "INSERT INTO customers (customer_name, customer_username, customer_password, customer_address) VALUES (?, ?, ?, ?)"; // SQL query to insert customer data into the database. customer_id should be auto-incremented in the database.
             PreparedStatement stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, name);

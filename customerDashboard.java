@@ -67,7 +67,7 @@ public class customerDashboard extends JFrame {
         String couponCode = JOptionPane.showInputDialog(this, "Enter coupon code:");
         double discount = 0.0;
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "root", "database28")) {
+        try (Connection conn = database.connection()) {
             if (couponCode != null && !couponCode.trim().isEmpty()) {
                 PreparedStatement couponCheck = conn.prepareStatement("SELECT discount_percent FROM coupons WHERE code = ?");
                 couponCheck.setString(1, couponCode);

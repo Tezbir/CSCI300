@@ -6,18 +6,6 @@ public class customerLogin extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField; // Found online, allows for password input without showing the password characters in the database for security reasons.
     private JButton loginButton, signUpButton;
-    public static Connection connection() {
-        try {
-            String url = "jdbc:mysql://localhost:3306/employee";
-            String user = "root";
-            String password = "database28";
-
-            return DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     public customerLogin() {
         setTitle("Customer Login");
         setSize(400, 300);
@@ -46,7 +34,7 @@ public class customerLogin extends JFrame {
     public void login() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        try (Connection conn = connection()) {
+        try (Connection conn = database.connection()) {
             String sql = "SELECT * FROM customers WHERE customer_username = ? AND customer_password = ?";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, username);

@@ -9,7 +9,7 @@ public class Main {
                 new customerLogin(); // Open the customer login window
                 break;
             case "E":
-                //new EmployeeLogin(); // Change to how you made the employee login window.
+                new EmployeeLogin(); // Change to how you made the employee login window.
                 break;
             case "A":
                 new AdminSignInPage(); // Change this to how you made the admin login window.
