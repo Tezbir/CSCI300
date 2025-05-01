@@ -182,3 +182,4 @@ CREATE TABLE online_store.cart (
     FOREIGN KEY (customer_id) REFERENCES online_store.Customers(customer_id)
 );
 DESCRIBE online_store.cart;
+ALTER TABLE online_store.Orders ADD COLUMN total_price DECIMAL(10,2);
