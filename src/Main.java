@@ -1,7 +1,14 @@
 import java.util.*;
+import java.sql.*; 
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        Connection conn = database.connection(); 
+        if (conn == null) {
+            System.out.println("Database connection failed. Exiting the program.");
+            scan.close(); // Close the scanner if the connection fails.
+            return; // Exit if the database connection fails.
+        }
         System.out.println("Welcome to Some Company! Are you signing in as a customer, an employee, or an admin? (C/E/A or type Q to quit)");
         String input = scan.nextLine().toUpperCase();
         switch (input) { // Rather than using if-else statements, we can use a switch statement for better readability.
